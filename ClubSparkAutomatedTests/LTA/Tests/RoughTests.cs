@@ -471,9 +471,10 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
-            adminEvents.SelectCreateNew();
-            adminEvents.SelectEventToHost();
-
+            //adminEvents.SelectCreateNew();
+            //adminEvents.SelectEventToHost();
+            adminEvents.ClickOnTennisFestival();
+            adminEvents.ClickPublishEventTOWebsite();
         }
 
 
