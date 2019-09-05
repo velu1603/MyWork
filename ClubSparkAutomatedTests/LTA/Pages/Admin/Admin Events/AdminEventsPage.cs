@@ -22,6 +22,10 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
         public readonly By _selectATennisFestival = By.XPath("//div[@class='row-fluid sortable ui-sortable']//div[2]//div[2]//div[2]//dl[1]//dt[1]//a[1]");
 
         public readonly By _publishEvent = By.XPath("//a[@id='open-days-publish']");
+        public readonly By _activities = By.XPath("//a[contains(text(),'Activities')]");
+
+        public readonly By _addActivity = By.XPath("//a[@class='ns-btn activity-btn btn-style-1']");
+
         public void SelectEvents()
         {
             driver.FindElement(_viewingLeftPanelIcon).Click();
@@ -46,12 +50,23 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
             driver.FindElement(_selectATennisFestival).Click();
         }
 
-        public void ClickPublishEventTOWebsite()
+        public void ClickPublishEventToWebsite()
         {
             driver.FindElement(_publishEvent).Click();
 
         }
-
+        public void ClickActivities()
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(_activities));
+            driver.FindElement(_activities).Click();
+        }
+        public void ClickAddActivity()
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(_addActivity));
+            driver.FindElement(_addActivity).Click();
+        }
 
     }
 }
