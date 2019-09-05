@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="LTA\Pages\AdminAdvancedBookingPage.cs" />
     <Compile Include="LTA\Pages\AdminBookingPage.cs" />
+    <Compile Include="LTA\Pages\Admin\Admin Events\AdminEventsPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminAddCoursePage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminCoachingAttendeesListPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminCoachingIndividualAttendeePage.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="LTA\Pages\Admin\AdminCoachingRefundPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminCoachingSearchCoursePage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminCoachingSelectUserForRefund.cs" />
+    <Compile Include="LTA\Pages\Admin\AdminHolidayCamp\AdminAddCampPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminHolidayCamp\AdminHolidayCampPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminLogOutPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminNewCoursePage.cs" />
@@ -135,6 +137,11 @@
     <Compile Include="LTA\Pages\Admin\MembershipPage.cs" />
     <Compile Include="LTA\Pages\Public\CreateNewMemberPage.cs" />
     <Compile Include="LTA\Pages\Public\JoinNowPage.cs" />
+    <Compile Include="LTA\Pages\Public\Member Holiday Camp\MemberHolidayCampBookingConfirmationPage.cs" />
+    <Compile Include="LTA\Pages\Public\Member Holiday Camp\MemberHolidayCampBookingPage.cs" />
+    <Compile Include="LTA\Pages\Public\Member Holiday Camp\MemberHolidayCampDetailPage.cs" />
+    <Compile Include="LTA\Pages\Public\Member Holiday Camp\MemberHolidayCampPage.cs" />
+    <Compile Include="LTA\Pages\Public\Member Holiday Camp\SelectHolidayCampPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberBookingPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberCoachingBookingConfirmationPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberCoachingTabPage.cs" />

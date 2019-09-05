@@ -122,7 +122,7 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Public
             driver.FindElement(By.Id("yearSelectBoxIt")).Click();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("yearSelectBoxIt")));
-            driver.FindElement(By.XPath("//*//*[@id='yearSelectBoxItOptions']/li[63]")).Click();
+            driver.FindElement(By.XPath("//*[@id='yearSelectBoxItOptions']/li[63]")).Click();
 
         }
         public void selectGender()

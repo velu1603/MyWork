@@ -13,6 +13,8 @@ using System.Threading;
 using ClubSparkAutomatedTests.LTA.Pages;
 using ClubSparkAutomatedTests.LTA.Pages.Public.MemberCoachingTab;
 using ClubSparkAutomatedTests.LTA.Pages.Stripe;
+using ClubSparkAutomatedTests.LTA.Pages.Admin.AdminHolidayCamp;
+using ClubSparkAutomatedTests.LTA.Pages.Public.Member_Holiday_Camp;
 
 namespace ClubSparkAutomatedTests.LTA.Tests
 {
@@ -363,8 +365,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         // [Ignore("ignore this test")]
         [TestCase("marry6072@gmail.com")]
         public void RefundACourseBooking(string emailid)
-        {
-            
+        {            
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminNewCoursePage adminNewCourse = new AdminNewCoursePage(_driver);
@@ -459,21 +460,68 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             Assert.AreEqual(refundStatus, "Refunded", "The names should match");
         }
 
-        public void CreateAHolidayCampAndBookOnToIt()
+        //[Ignore("ignore this test")]
+        [TestCase("jadu1123@gmail.com")] // Pass the unique email here 
+        public void CreateAHolidayCampAndBookOnToIt(string emailid)
         {
-            //1
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminNewCoursePage adminNewCourse = new AdminNewCoursePage(_driver);
-
-
-
+            AdminHolidayCampPage adminHolidayCamp = new AdminHolidayCampPage(_driver);
+            AdminAddCampPage adminNewCamp = new AdminAddCampPage(_driver);
+            AdminLogOutPage adminLogout = new AdminLogOutPage(_driver);
+            CreateNewMemberPage createNewMember = new CreateNewMemberPage(_driver);
+            SelectHolidayCampPage selectHolidayCamp = new SelectHolidayCampPage(_driver);
+            MemberHolidayCampPage memberHolidayCamp = new MemberHolidayCampPage(_driver);
+            MemberHolidayCampDetailPage memberHolidayCampDetail = new MemberHolidayCampDetailPage(_driver);
+            MemberHolidayCampBookingPage memberHolidayCampBooking = new MemberHolidayCampBookingPage(_driver);
+            MemberBookingPage memberBookingPage = new MemberBookingPage(_driver);
+            MemberHolidayCampBookingConfirmationPage memberBookingConfirmation = new MemberHolidayCampBookingConfirmationPage(_driver);
 
             // Act
             loginPage.Login();
             adminNewCourse.SelectCoaching();
+            adminNewCourse.ClickHolidayCamps();
 
+            //Assert-->on holiday camp page
+            var holidayCampPageTitle = _driver.Title;
+            Console.WriteLine(holidayCampPageTitle);
+            Assert.IsTrue(holidayCampPageTitle.Contains("ClubSpark / Admin / Coaching / Holiday Camps"));
 
+            // Act --> click add new camp
+            adminHolidayCamp.ClickAddNewCamp();
+
+            // Assert --> on add camp 
+            var addCampPageTitle = _driver.Title;
+            Console.WriteLine(addCampPageTitle);
+            Assert.IsTrue(addCampPageTitle.Contains("ClubSpark / Admin / Coaching /Holiday Camps / Add camp"));
+
+            //Generate a course name --> this will be passed as name to create the new course 
+            var courseName = "Automation_HolidayCamp_" + RandomGenerator.RandomString(3, false);
+            Console.WriteLine(courseName);
+            string campCreatedMessage = adminNewCamp.addNewHolidayCamp(courseName, "30", "60");
+            Console.WriteLine(campCreatedMessage);
+
+            // Assert
+            Assert.AreEqual(campCreatedMessage, "CAMP SAVED", "The names match");
+            adminLogout.LogoutOfAdmin();
+
+            //Act
+            createNewMember.RegisterUser("Jennifer", "Jane", emailid, emailid);
+
+            string newMember = createNewMember.getMemberText();
+            Console.WriteLine("The new member created is :" + newMember);
+            selectHolidayCamp.ClickHolidayCamp();
+            memberHolidayCamp.SelectHolidayCamp(courseName);
+            memberHolidayCampDetail.ClickSession();
+            memberHolidayCampDetail.ContinueToOrderSummary();
+            memberHolidayCampBooking.EnterDetails();
+            memberHolidayCampBooking.SelectMember();
+            memberHolidayCampBooking.SelectTermsAndConditions();
+            memberHolidayCampBooking.ClickPayNow();
+            memberBookingPage.EnterStripeAccount();
+            string bookingConfirmText = memberBookingConfirmation.BookingConfirmationText();
+            Assert.AreEqual(bookingConfirmText, "Confirmed! Your Holiday camp is booked.", "The names should match");
         }
 
 
