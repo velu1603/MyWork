@@ -1,5 +1,6 @@
 ﻿using ClubSparkAutomatedTests._Help;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,16 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
     {
         public AdminEventsActivitiesPage(IWebDriver driver) { this.driver = driver; }
 
-        public readonly By _addActivity = By.XPath("//a[@class='ns-btn activity-btn btn-style-1']");
+        public readonly By _ballType = By.XPath("//select[@id='CreateOpenDaysActivity_BallColour']");
 
+        
 
-    }
+        public void SelectBallType()
+        {
+            IWebElement ballType = driver.FindElement(_ballType);
+            SelectElement selectBallType = new SelectElement(ballType);
+            selectBallType.SelectByIndex(0);
+        }
 
-   
+    }  
 }

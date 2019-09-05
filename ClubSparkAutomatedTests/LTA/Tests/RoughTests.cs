@@ -468,6 +468,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminEventsPage adminEvents = new AdminEventsPage(_driver);
+            AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
@@ -477,7 +478,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             //adminEvents.ClickPublishEventToWebsite();
             adminEvents.ClickActivities();
             adminEvents.ClickAddActivity();
-
+            addActivities.SelectBallType();
         }
 
 

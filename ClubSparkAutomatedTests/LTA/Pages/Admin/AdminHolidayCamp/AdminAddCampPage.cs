@@ -104,8 +104,5 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.AdminHolidayCamp
             var afternoonSelectEndTime = new SelectElement(afternoonEndTime);
             afternoonSelectEndTime.SelectByText("17:30");
         }
-
-
-
     }
 }

@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="LTA\Pages\AdminAdvancedBookingPage.cs" />
     <Compile Include="LTA\Pages\AdminBookingPage.cs" />
+    <Compile Include="LTA\Pages\Admin\Admin Events\AdminEventsActivitiesPage.cs" />
     <Compile Include="LTA\Pages\Admin\Admin Events\AdminEventsPage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminAddCoursePage.cs" />
     <Compile Include="LTA\Pages\Admin\AdminCoachingAttendeesListPage.cs" />
