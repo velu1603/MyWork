@@ -11,7 +11,11 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
     public class AdminEventsActivitiesPage : Base
     {
         public AdminEventsActivitiesPage(IWebDriver driver) { this.driver = driver; }
+
+        public readonly By _addActivity = By.XPath("//a[@class='ns-btn activity-btn btn-style-1']");
+
+
     }
 
-    public readonly By _addActivity = By.XPath("//a[@class='ns-btn activity-btn btn-style-1']");
+   
 }
