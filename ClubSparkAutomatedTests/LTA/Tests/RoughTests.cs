@@ -6,6 +6,7 @@ using ClubSparkAutomatedTests.LTA.Pages.Admin.AdminHolidayCamp;
 using ClubSparkAutomatedTests.LTA.Pages.Public;
 using ClubSparkAutomatedTests.LTA.Pages.Public.Member_Holiday_Camp;
 using ClubSparkAutomatedTests.LTA.Pages.Public.MemberCoachingTab;
+using ClubSparkAutomatedTests.LTA.Pages.Public.MemberEventsBooking;
 using ClubSparkAutomatedTests.LTA.Pages.Stripe;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -466,24 +467,25 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         public void CreateAnEventAndMakeABooking()
         {
             //Arrange
-            var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
+            //var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminEventsPage adminEvents = new AdminEventsPage(_driver);
             AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
-
-            
+            AdminLogOutPage adminLogout = new AdminLogOutPage(_driver);
+            CreateNewMemberPage createNewMember = new CreateNewMemberPage(_driver);
+            MemberEventsBookingPage memberEventsBooking = new MemberEventsBookingPage(_driver);
+            /*
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
             //adminEvents.SelectCreateNew();
             //adminEvents.SelectEventToHost();
             adminEvents.ClickOnTennisFestival();
-            //adminEvents.ClickPublishEventToWebsite();
+            
             adminEvents.ClickActivities();
             adminEvents.ClickAddActivity();
             addActivities.SelectBallType();
 
             string eventName = "Event Name_" + RandomGenerator.RandomString(3, false);
-
             addActivities.EventName(eventName);
             Console.WriteLine(eventName);
             addActivities.SelectGender();
@@ -494,9 +496,24 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             addActivities.SaveActivity();
 
             string getEventName = addActivities.getEventName(eventName);
-            // Assert that the even has been created
+            // Assert that the event has been created
             Assert.AreEqual(eventName, getEventName, "The names should match");
+            
+            // Act 
+            adminEvents.ClickPublishEventToWebsite();            
+            Assert.IsTrue(adminEvents.CheckViewEventOnline());
 
+            adminEvents.GoToHome();
+            adminLogout.LogoutOfAdmin(); // Logout of Admin 
+            */
+
+            var randomNumber = RandomGenerator.RandomNumber(1, 1000);
+            var randomString = RandomGenerator.RandomString(4, false);
+            var emailid = "auto" + randomString + randomNumber + "@gmail.com";
+            Console.WriteLine(emailid);
+            createNewMember.RegisterUser("Jennifer", "Jane", emailid, emailid);
+            memberEventsBooking.ClickEvents();
+            memberEventsBooking.SelectTennisFestival();
         }
 
         [TearDown]        

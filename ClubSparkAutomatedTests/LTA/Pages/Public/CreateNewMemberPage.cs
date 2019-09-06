@@ -73,7 +73,30 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Public
             signUp();
             getMemberText();
         }
-         public void memberFirstName(string firstName)
+
+        public void RegisterBackUpUser(string firstName, string lastName, string emailAddress, string confirmEmailAddress)
+        {
+            driver.Navigate().GoToUrl(ConfigurationManager.AppSettings["LTA_MemberURL"]);
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(_register));
+            driver.FindElement(_register).Click();
+
+            // Pass relevant fields to create new user
+            memberFirstName(firstName);
+            memberLastName(lastName);
+            memberEmailAddress(emailAddress);
+            memberConfirmEmailAddress(confirmEmailAddress);
+            memberMobileNumber("1010101010");
+            memberDate(10);
+            memberMonth("May");
+            memberYear("1985");
+            selectGender();
+            postCode("SW193RQ");
+            password("clubspark");
+            signUp();
+            getMemberText();
+        }
+        public void memberFirstName(string firstName)
         {
             driver.FindElement(_newMemberFirstName).SendKeys(firstName);
         }

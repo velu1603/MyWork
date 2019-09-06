@@ -22,9 +22,13 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
         public readonly By _selectATennisFestival = By.XPath("//div[@class='row-fluid sortable ui-sortable']//div[2]//div[2]//div[2]//dl[1]//dt[1]//a[1]");
 
         public readonly By _publishEvent = By.XPath("//a[@id='open-days-publish']");
+
+        public readonly By _viewEventOnline = By.XPath("//strong[contains(text(),'View event online')]");
         public readonly By _activities = By.XPath("//a[contains(text(),'Activities')]");
 
         public readonly By _addActivity = By.XPath("//a[@class='ns-btn activity-btn btn-style-1']");
+
+        public readonly By _homePage = By.XPath("//span[contains(text(),'Home')]");
 
         public void SelectEvents()
         {
@@ -53,12 +57,21 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
         public void ClickPublishEventToWebsite()
         {
             driver.FindElement(_publishEvent).Click();
-
+            
         }
+
+        public bool CheckViewEventOnline()
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(25));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(_viewEventOnline));
+            return driver.FindElement(_viewEventOnline).Displayed;
+        }
+
+
         public void ClickActivities()
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(_activities));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(_activities));
             driver.FindElement(_activities).Click();
         }
         public void ClickAddActivity()
@@ -67,6 +80,13 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(_addActivity));
             driver.FindElement(_addActivity).Click();
         }
+
+        public void GoToHome()
+        {
+            driver.FindElement(_homePage).Click();
+        }
+
+
 
     }
 }

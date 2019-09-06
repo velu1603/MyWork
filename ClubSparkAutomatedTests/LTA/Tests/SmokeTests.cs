@@ -527,22 +527,45 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             Assert.AreEqual(bookingConfirmText, "Confirmed! Your Holiday camp is booked.", "The names should match");
         }
 
+        [TestCase]
         public void CreateAnEventAndMakeABooking()
         {
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminEventsPage adminEvents = new AdminEventsPage(_driver);
             AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
+            AdminLogOutPage adminLogout = new AdminLogOutPage(_driver);
+
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
             //adminEvents.SelectCreateNew();
             //adminEvents.SelectEventToHost();
             adminEvents.ClickOnTennisFestival();
-            //adminEvents.ClickPublishEventToWebsite();
+
             adminEvents.ClickActivities();
             adminEvents.ClickAddActivity();
             addActivities.SelectBallType();
+
+            string eventName = "Event Name_" + RandomGenerator.RandomString(3, false);
+            addActivities.EventName(eventName);
+            Console.WriteLine(eventName);
+            addActivities.SelectGender();
+            addActivities.EntryFeePerPlayer("30");
+            addActivities.StartTime();
+            addActivities.EndTime();
+            addActivities.Description("This is while running the automation script " + eventName);
+            addActivities.SaveActivity();
+
+            string getEventName = addActivities.getEventName(eventName);
+            // Assert that the event has been created
+            Assert.AreEqual(eventName, getEventName, "The names should match");
+
+            adminEvents.ClickPublishEventToWebsite();
+            Assert.IsTrue(adminEvents.CheckViewEventOnline());
+            adminEvents.GoToHome();
+            adminLogout.LogoutOfAdmin(); // Logout of Admin 
+
         }
 
 
