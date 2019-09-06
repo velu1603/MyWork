@@ -147,6 +147,7 @@
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberCoachingBookingConfirmationPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberCoachingTabPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberCoachingTab\MemberJoiningPage.cs" />
+    <Compile Include="LTA\Pages\Public\MemberEventsBooking\MemberEventsBookingPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberLoggedInPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberLogoutPage.cs" />
     <Compile Include="LTA\Pages\Public\MemberSetUpGoCardlessDirectDebit.cs" />
@@ -157,7 +158,6 @@
     <Compile Include="LTA\Pages\Public\MemberLoginPage.cs" />
     <Compile Include="LTA\Pages\Stripe\StripeLogInPage.cs" />
     <Compile Include="LTA\Pages\Stripe\StripePaymentRefundPage.cs" />
-    <Compile Include="LTA\Tests\RoughTests.cs" />
     <Compile Include="LTA\Tests\SmokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RAC\Pages\Admin\LoginPage.cs" />

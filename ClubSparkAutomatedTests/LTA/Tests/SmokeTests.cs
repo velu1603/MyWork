@@ -16,6 +16,7 @@ using ClubSparkAutomatedTests.LTA.Pages.Stripe;
 using ClubSparkAutomatedTests.LTA.Pages.Admin.AdminHolidayCamp;
 using ClubSparkAutomatedTests.LTA.Pages.Public.Member_Holiday_Camp;
 using ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events;
+using ClubSparkAutomatedTests.LTA.Pages.Public.MemberEventsBooking;
 
 namespace ClubSparkAutomatedTests.LTA.Tests
 {
@@ -535,7 +536,8 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             AdminEventsPage adminEvents = new AdminEventsPage(_driver);
             AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
             AdminLogOutPage adminLogout = new AdminLogOutPage(_driver);
-
+            CreateNewMemberPage createNewMember = new CreateNewMemberPage(_driver);
+            MemberEventsBookingPage memberEventsBooking = new MemberEventsBookingPage(_driver);
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
@@ -565,6 +567,14 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             Assert.IsTrue(adminEvents.CheckViewEventOnline());
             adminEvents.GoToHome();
             adminLogout.LogoutOfAdmin(); // Logout of Admin 
+            // Below to generate random email --to be kept as common function
+            var randomNumber = RandomGenerator.RandomNumber(1, 1000);
+            var randomString = RandomGenerator.RandomString(4, false);
+            var emailid = "auto" + randomString + randomNumber + "@gmail.com";
+            Console.WriteLine(emailid);
+            createNewMember.RegisterUser("Jennifer", "Jane", emailid, emailid);
+            memberEventsBooking.ClickEvents();
+            memberEventsBooking.SelectTennisFestival();
 
         }
 
