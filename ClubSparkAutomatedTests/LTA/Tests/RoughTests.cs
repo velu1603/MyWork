@@ -463,12 +463,14 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         }
 
         [TestCase]
-        public void Createaneventandmakeabooking()
+        public void CreateAnEventAndMakeABooking()
         {
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
             AdminEventsPage adminEvents = new AdminEventsPage(_driver);
             AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
+
+            
             // Act
             loginPage.Login();
             adminEvents.SelectEvents();
@@ -479,16 +481,28 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             adminEvents.ClickActivities();
             adminEvents.ClickAddActivity();
             addActivities.SelectBallType();
+
+            string eventName = "Event Name_" + RandomGenerator.RandomString(3, false);
+
+            addActivities.EventName(eventName);
+            Console.WriteLine(eventName);
+            addActivities.SelectGender();
+            addActivities.EntryFeePerPlayer("30");
+            addActivities.StartTime();
+            addActivities.EndTime();
+            addActivities.Description("This is while running the automation script "+eventName);
+            addActivities.SaveActivity();
+
+            string getEventName = addActivities.getEventName(eventName);
+            // Assert that the even has been created
+            Assert.AreEqual(eventName, getEventName, "The names should match");
+
         }
-
-
-
-
 
         [TearDown]        
          public void CleanUp()
          {
-         // _driver.Quit();
+         _driver.Quit();
          }            
 
         }

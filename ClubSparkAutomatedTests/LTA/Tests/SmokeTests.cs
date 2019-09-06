@@ -15,6 +15,7 @@ using ClubSparkAutomatedTests.LTA.Pages.Public.MemberCoachingTab;
 using ClubSparkAutomatedTests.LTA.Pages.Stripe;
 using ClubSparkAutomatedTests.LTA.Pages.Admin.AdminHolidayCamp;
 using ClubSparkAutomatedTests.LTA.Pages.Public.Member_Holiday_Camp;
+using ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events;
 
 namespace ClubSparkAutomatedTests.LTA.Tests
 {
@@ -367,7 +368,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         public void RefundACourseBooking(string emailid)
         {            
             //Arrange
-            var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
+            var loginPage = new LoginPage(_driver);  // >>>>>>>Login to Admnin portal 
             AdminNewCoursePage adminNewCourse = new AdminNewCoursePage(_driver);
             AdminCoachingNormalAdultPage normalAdult = new AdminCoachingNormalAdultPage(_driver);
             AdminAddCoursePage adminAddCourse = new AdminAddCoursePage(_driver);
@@ -457,6 +458,8 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             stripeRefund.SearchEmailId(emailid);
             string refundStatus = stripeRefund.RefundStatus();
             Console.WriteLine(refundStatus);
+
+            //Assert 
             Assert.AreEqual(refundStatus, "Refunded", "The names should match");
         }
 
@@ -524,6 +527,23 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             Assert.AreEqual(bookingConfirmText, "Confirmed! Your Holiday camp is booked.", "The names should match");
         }
 
+        public void CreateAnEventAndMakeABooking()
+        {
+            //Arrange
+            var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
+            AdminEventsPage adminEvents = new AdminEventsPage(_driver);
+            AdminEventsActivitiesPage addActivities = new AdminEventsActivitiesPage(_driver);
+            // Act
+            loginPage.Login();
+            adminEvents.SelectEvents();
+            //adminEvents.SelectCreateNew();
+            //adminEvents.SelectEventToHost();
+            adminEvents.ClickOnTennisFestival();
+            //adminEvents.ClickPublishEventToWebsite();
+            adminEvents.ClickActivities();
+            adminEvents.ClickAddActivity();
+            addActivities.SelectBallType();
+        }
 
 
         [TearDown]
