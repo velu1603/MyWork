@@ -46,20 +46,16 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Public.MemberCoachingTab
             driver.FindElement(_selectToAttend).Click();
             driver.FindElement(_termsAndConditions).Click();
             driver.FindElement(_payNow).Click();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
         public void EnterStripeAccount()
         {
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-                        
+            driver.SwitchTo().Window(driver.WindowHandles.Last());       
             IWebElement iframe = driver.FindElement(_swipeFrame);
             driver.SwitchTo().Frame(iframe);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            GeneralMethods.WaitForElement(driver,_stripeCardNumber);
-            //wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(_stripeCardNumber));
+            GeneralMethods.WaitForElement(driver,_stripeCardNumber);            
             driver.FindElement(_stripeCardNumber).SendKeys("4242 4242 4242 4242");
 
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));

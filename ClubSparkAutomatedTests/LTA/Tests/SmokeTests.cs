@@ -364,6 +364,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         }
 
         // [Ignore("ignore this test")]
+        [TestCase]
         public void RefundACourseBooking()
         {
             //Arrange
