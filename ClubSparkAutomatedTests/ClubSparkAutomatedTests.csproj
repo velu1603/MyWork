@@ -162,7 +162,6 @@
     <Compile Include="LTA\Pages\Stripe\StripeLogInPage.cs" />
     <Compile Include="LTA\Pages\Stripe\StripePaymentRefundPage.cs" />
     <Compile Include="LTA\Tests\SmokeTests.cs" />
-    <Compile Include="LTA\Tests\UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RAC\Pages\Admin\LoginPage.cs" />
     <Compile Include="_Help\Base.cs" />
