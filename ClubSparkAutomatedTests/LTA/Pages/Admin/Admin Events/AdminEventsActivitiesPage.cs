@@ -84,9 +84,9 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             string xpath = "//h3[contains(text(),'" + eventName +"')]";
             var element = driver.FindElement(By.XPath(xpath));            
-            return element.Text;
-            
+            return element.Text;            
         }
+
         
 
 

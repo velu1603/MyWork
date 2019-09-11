@@ -365,7 +365,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         }
 
         // [Ignore("ignore this test")]
-        [TestCase("marry6072@gmail.com")]
+        [TestCase("marry607332@gmail.com")]
         public void RefundACourseBooking(string emailid)
         {            
             //Arrange
@@ -465,7 +465,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         }
 
         //[Ignore("ignore this test")]
-        [TestCase("jadu1123@gmail.com")] // Pass the unique email here 
+        [TestCase("jadu11233@gmail.com")] // Pass the unique email here 
         public void CreateAHolidayCampAndBookOnToIt(string emailid)
         {
             //Arrange
@@ -538,44 +538,77 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             AdminLogOutPage adminLogout = new AdminLogOutPage(_driver);
             CreateNewMemberPage createNewMember = new CreateNewMemberPage(_driver);
             MemberEventsBookingPage memberEventsBooking = new MemberEventsBookingPage(_driver);
-            // Act
+            NewEventDetailsForTennisFestival newEventDetails = new NewEventDetailsForTennisFestival(_driver);
+            MemberBookingPage memberBookingPage = new MemberBookingPage(_driver);
+            MemberConfirmationPage memberConfirmation = new MemberConfirmationPage(_driver);
+            //Act
             loginPage.Login();
             adminEvents.SelectEvents();
-            //adminEvents.SelectCreateNew();
-            //adminEvents.SelectEventToHost();
-            adminEvents.ClickOnTennisFestival();
+            adminEvents.SelectCreateNew();
+            adminEvents.SelectEventToHost();
 
+            newEventDetails.SelectTheme();
+            newEventDetails.SelectDate();
+            newEventDetails.StartTime();
+            newEventDetails.EndTime();
+
+            string competitionName = "Competition Name_" + RandomGenerator.RandomString(4, false);
+            newEventDetails.CompetitionName(competitionName);
+
+            newEventDetails.CheckTakeOnlinePayment();
+            newEventDetails.EnterInroduction("Introducing while running the automation script");
+            newEventDetails.EnterCompetitionDetails("Competition running the automation script");
+            newEventDetails.ContactEmail("contact@contact.com");
+            newEventDetails.ContactPhoneNumber("02073717700");
+            newEventDetails.SaveEvent();
             adminEvents.ClickActivities();
             adminEvents.ClickAddActivity();
             addActivities.SelectBallType();
-
-            string eventName = "Event Name_" + RandomGenerator.RandomString(3, false);
-            addActivities.EventName(eventName);
-            Console.WriteLine(eventName);
+            addActivities.EventName(competitionName);
             addActivities.SelectGender();
             addActivities.EntryFeePerPlayer("30");
             addActivities.StartTime();
             addActivities.EndTime();
-            addActivities.Description("This is while running the automation script " + eventName);
+            addActivities.Description("This is while running the automation script " + competitionName);
             addActivities.SaveActivity();
-
-            string getEventName = addActivities.getEventName(eventName);
+            string getEventName = addActivities.getEventName(competitionName);
             // Assert that the event has been created
-            Assert.AreEqual(eventName, getEventName, "The names should match");
+            Assert.AreEqual(competitionName, getEventName, "The names should match");
 
             adminEvents.ClickPublishEventToWebsite();
             Assert.IsTrue(adminEvents.CheckViewEventOnline());
             adminEvents.GoToHome();
             adminLogout.LogoutOfAdmin(); // Logout of Admin 
+
+            // connect to DB and get the ID generated for the event
+            var id = SQLHelperMethods.GetIdFromDb(competitionName);
+            Console.WriteLine("id returned :" + id);
+
             // Below to generate random email --to be kept as common function
             var randomNumber = RandomGenerator.RandomNumber(1, 1000);
             var randomString = RandomGenerator.RandomString(4, false);
             var emailid = "auto" + randomString + randomNumber + "@gmail.com";
             Console.WriteLine(emailid);
-            createNewMember.RegisterUser("Jennifer", "Jane", emailid, emailid);
+            createNewMember.RegisterUser("Enid", "Blyton", emailid, emailid);
             memberEventsBooking.ClickEvents();
             memberEventsBooking.SelectTennisFestival();
 
+            //string eventName = "Competition Name_OZCJ";
+            string getEventNameForBooking = addActivities.getEventName(competitionName);            
+
+            // Assert that the events are the sane for booking
+            Assert.AreEqual(getEventNameForBooking, competitionName, "The names should match");
+
+            memberEventsBooking.Book();
+            memberEventsBooking.ClickBasket();
+            memberEventsBooking.BookNow();
+            memberEventsBooking.SelectMember();
+            memberEventsBooking.ClickConfirm();
+            memberEventsBooking.ClickTermsAndConditions();
+            memberEventsBooking.ConfirmAndPayNow();
+            memberBookingPage.EnterStripeAccount();
+            string bookingConfirmText = memberConfirmation.BookingConfirmationText();
+            Assert.AreEqual(bookingConfirmText,"Thanks for booking", "The names should match");
         }
 
 

@@ -45,8 +45,10 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
         public void SelectEventToHost()
         {
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(25);
             driver.FindElement(_selectBrtishTennisFestivals).Click();
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
         }
 
         public void ClickOnTennisFestival()
@@ -62,7 +64,7 @@ namespace ClubSparkAutomatedTests.LTA.Pages.Admin.Admin_Events
 
         public bool CheckViewEventOnline()
         {
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(25));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(_viewEventOnline));
             return driver.FindElement(_viewEventOnline).Displayed;
         }
