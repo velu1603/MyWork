@@ -361,13 +361,11 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             // Assert that the course name on the direct link matches with the name that was used to create the course. 
             string courseNameFromDirectLinkPage = courseUI.GetCourseNameFromDirectLinkPage();
             Assert.AreEqual(courseName, courseNameFromDirectLinkPage, "The names match");
-
         }
 
         // [Ignore("ignore this test")]
-        [TestCase("marry607332@gmail.com")]
-        public void RefundACourseBooking(string emailid)
-        {            
+        public void RefundACourseBooking()
+        {
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Login to Admnin portal 
             AdminNewCoursePage adminNewCourse = new AdminNewCoursePage(_driver);
@@ -390,7 +388,6 @@ namespace ClubSparkAutomatedTests.LTA.Tests
 
 
             // Act
-            
             loginPage.Login();
             adminNewCourse.SelectCoaching();
             adminNewCourse.ClickViewCourse();
@@ -406,6 +403,9 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             // Assert
             Assert.AreEqual(courseCreatedMessage, "COURSE SUCCESSFULLY CREATED", "The names match");
             adminLogout.LogoutOfAdmin();
+
+            // Below to generate random email      
+            string emailid = GenerateEmailId.GenerateRandomEmailId();
 
             // create a new user and join the course created above
             createNewMember.RegisterUser("Mary", "Lin", emailid, emailid);
@@ -427,7 +427,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             memberLogout.SignOut();
 
             //Act
-            // Sign into admin account and search for the course enrolled by the member as above
+            // Sign into admin account and search for the course enrolled by the member 
             loginPage.Login();
             memberHomePage.SelectCoachingTab();
             adminNewCourse.ClickViewCourse();
@@ -465,8 +465,8 @@ namespace ClubSparkAutomatedTests.LTA.Tests
         }
 
         //[Ignore("ignore this test")]
-        [TestCase("jadu11233@gmail.com")] // Pass the unique email here 
-        public void CreateAHolidayCampAndBookOnToIt(string emailid)
+        [TestCase]
+        public void CreateAHolidayCampAndBookOnToIt()
         {
             //Arrange
             var loginPage = new LoginPage(_driver);  // >>>>>>>Loginto Admnin portal 
@@ -510,6 +510,8 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             Assert.AreEqual(campCreatedMessage, "CAMP SAVED", "The names match");
             adminLogout.LogoutOfAdmin();
 
+            // Below to generate random email      
+            string emailid = GenerateEmailId.GenerateRandomEmailId();
             //Act
             createNewMember.RegisterUser("Jennifer", "Jane", emailid, emailid);
 
@@ -527,6 +529,7 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             string bookingConfirmText = memberBookingConfirmation.BookingConfirmationText();
             Assert.AreEqual(bookingConfirmText, "Confirmed! Your Holiday camp is booked.", "The names should match");
         }
+
 
         [TestCase]
         public void CreateAnEventAndMakeABooking()
@@ -546,13 +549,13 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             adminEvents.SelectEvents();
             adminEvents.SelectCreateNew();
             adminEvents.SelectEventToHost();
-
             newEventDetails.SelectTheme();
             newEventDetails.SelectDate();
             newEventDetails.StartTime();
             newEventDetails.EndTime();
 
             string competitionName = "Competition Name_" + RandomGenerator.RandomString(4, false);
+            Console.WriteLine("Competition name :" + competitionName);
             newEventDetails.CompetitionName(competitionName);
 
             newEventDetails.CheckTakeOnlinePayment();
@@ -584,10 +587,9 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             var id = SQLHelperMethods.GetIdFromDb(competitionName);
             Console.WriteLine("id returned :" + id);
 
-            // Below to generate random email --to be kept as common function
-            var randomNumber = RandomGenerator.RandomNumber(1, 1000);
-            var randomString = RandomGenerator.RandomString(4, false);
-            var emailid = "auto" + randomString + randomNumber + "@gmail.com";
+            // Below to generate random email      
+            string emailid = GenerateEmailId.GenerateRandomEmailId();
+
             Console.WriteLine(emailid);
             createNewMember.RegisterUser("Enid", "Blyton", emailid, emailid);
             memberEventsBooking.ClickEvents();
@@ -609,6 +611,9 @@ namespace ClubSparkAutomatedTests.LTA.Tests
             memberBookingPage.EnterStripeAccount();
             string bookingConfirmText = memberConfirmation.BookingConfirmationText();
             Assert.AreEqual(bookingConfirmText,"Thanks for booking", "The names should match");
+
+            //delete the ID from Database
+            SQLHelperMethods.DeleteIdFromDb(id);
         }
 
 

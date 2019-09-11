@@ -14,7 +14,7 @@ namespace ClubSparkAutomatedTests._Help
         public static Guid GetIdFromDb(string eventName)
         {
             var ConnectionString = @ConfigurationManager.AppSettings["TestDBConnection"];
-            var vQuery = "SELECT ID FROM OpenDay WHERE EventName = '" + eventName + "'";
+            var vQuery = "SELECT ID,IsDeleted FROM OpenDay WHERE EventName = '" + eventName + "'";
 
             SqlConnection Connection;  // It is for SQL connection
             Connection = new SqlConnection(ConnectionString);
@@ -23,17 +23,15 @@ namespace ClubSparkAutomatedTests._Help
             try
             {
                 Connection.Open();
-                Console.WriteLine("Connection with database is done.");
+                Console.WriteLine("Connection with database is done. for getting the ID");
+
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
-                {
-                    //Console.WriteLine("Reading data in db");                    
+                {                                     
                     Console.WriteLine(dr["ID"]);
-                    // Console.WriteLine(dr["Description"]);
-                    // Console.WriteLine(dr["EventName"]);
-                    ID = dr.GetGuid(0);
-                    //Console.WriteLine("ID ="+ID);
+                    Console.WriteLine(dr["IsDeleted"]);                    
+                    ID = dr.GetGuid(0);                
 
                 }
 
@@ -44,8 +42,9 @@ namespace ClubSparkAutomatedTests._Help
             }
             finally
             {
+                Connection.Dispose();
                 Connection.Close();
-                Console.WriteLine("Connection with database is closed");
+                Console.WriteLine("Connection with database is closed--for getting ID");
             }
 
             return ID;
@@ -66,17 +65,12 @@ namespace ClubSparkAutomatedTests._Help
             try
             {
                 Connection.Open();
-                Console.WriteLine("Connection with database is done.");
+                Console.WriteLine("Connection with database is done for deleting ID.");
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
-                {
-                    //Console.WriteLine("Reading data in db");                    
-                    Console.WriteLine(dr["ID"]);
-                    // Console.WriteLine(dr["Description"]);
-                    // Console.WriteLine(dr["EventName"]);
-                    //ID = dr.GetGuid(0);
-                    //Console.WriteLine("ID ="+ID);
+                {                   
+                  Console.WriteLine(dr["ID"]);                    
                 }
 
             }
@@ -86,8 +80,9 @@ namespace ClubSparkAutomatedTests._Help
             }
             finally
             {
+                Connection.Dispose();
                 Connection.Close();
-                Console.WriteLine("Connection with database is closed");
+                Console.WriteLine("Connection with database is closed --for deleting ID");
             }
 
             
